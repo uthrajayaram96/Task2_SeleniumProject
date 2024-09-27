@@ -3,6 +3,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # Entering account information - email, password, accepting terma and condition, selecting Areoplan number option (N0)
 def enter_account_information(driver):
@@ -76,9 +78,16 @@ def enter_contact_information(driver):
     driver.find_element(By.XPATH, "//input[@formcontrolname='addressLine1']").send_keys("2107 Deer Creek Dr")
     driver.find_element(By.XPATH, "//input[@formcontrolname='city']").send_keys("Plainsboro")
     # Select country
-    driver.execute_script("arguments[0].click();",
-                          driver.find_element(By.XPATH, "(//div[contains(@class,'mat-select-trigger')])[1]"))
+    #driver.execute_script("arguments[0].click();",
+                          #driver.find_element(By.XPATH, "(//div[contains(@class,'mat-select-trigger')])[1]"))
+    #driver.find_element(By.XPATH, "(//div[contains(@class,'mat-select-trigger')])[1]").click()
+    #driver.find_element(By.XPATH,"//mat-select[@name='country']").click()
+
+    # had to use explicit wait
+    country_ele = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "//mat-select[@name='country']")))
+    country_ele.click()
     countries = driver.find_elements(By.XPATH, "//div[@aria-label='Country/Region']//mat-option")
+    print(len(countries))
     for country in countries:
         if country.text.lower() == 'united states':
             driver.execute_script("arguments[0].click();", country)
@@ -94,7 +103,7 @@ def enter_contact_information(driver):
     # Select Country code
     driver.execute_script("arguments[0].click();",
                           driver.find_element(By.XPATH, "(//div[contains(@class,'mat-select-trigger')])[3]"))
-    country_codes = driver.find_elements(By.XPATH, "//div[@aria-label='State']//mat-option")
+    country_codes = driver.find_elements(By.XPATH, "//div[@aria-label='Phone number']//span[@class='country-name']")
     for cc in country_codes:
         if cc.text.lower() == "united states":
             driver.execute_script("arguments[0].click();", cc)
@@ -102,14 +111,13 @@ def enter_contact_information(driver):
     driver.find_element(By.XPATH, "//input[@formcontrolname='zip']").send_keys("08536")
     driver.find_element(By.XPATH, "//input[@formcontrolname='phoneNumber']").send_keys("7085632158")
     driver.execute_script("arguments[0].click();", driver.find_element(By.ID, "privacyPolicycheckBox-input"))
-    time.sleep(30)
     return driver
 
 
 if __name__ == '__main__':
     service = Service(executable_path="C:\\Driver\\Python_files\\chromedriver-win64\\chromedriver.exe")
     driver = webdriver.Chrome(service=service)
-    driver.implicitly_wait(30)
+    driver.implicitly_wait(20)
     driver.get('https://www.aircanada.com/')
     driver.maximize_window()
 
