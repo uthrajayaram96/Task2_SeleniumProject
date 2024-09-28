@@ -17,13 +17,14 @@ def validate_search_bar(driver):
     driver.find_element(By.XPATH, "//input[@name='acSiteSearchInput']").send_keys("canada")
     driver.find_element(By.XPATH, "//input[@name='acSiteSearchInput']").send_keys(Keys.ENTER)
     search_result = []
+
     try:
         sr = driver.find_elements(By.XPATH, "//ol[@class='search-list simple-list']//a")
         for s in sr:
             search_result.append(s.text)
-        return search_result
+        return search_result, True
     except NoSuchElementException:
-        return []
+        return [], False
 
 
 if __name__ == '__main__':
@@ -33,7 +34,9 @@ if __name__ == '__main__':
     driver.get('https://www.aircanada.com/')
     driver.maximize_window()
 
-    search_results = validate_search_bar(driver)
+    search_results,status = validate_search_bar(driver)
 
+    assert status, "Test case 3 Failed!"
+    print("Test case 3 Passed ! Here are the search results")
     print(search_results)
 

@@ -45,11 +45,9 @@ if __name__ == '__main__':
 
     status, act_msg1, act_msg2, act_msg3 = validate_required_fields(driver)
 
-    if status:
-        print("Test case Passed - Not able to continue to next section without entering required fields")
-    else:
-        assert status, " Test case failed - Able to continue to next section without entering required fields"
+    assert status, " Test case 2 failed! - Able to continue to next section without entering required fields"
 
+    print("Test case 2 Passed! - Not able to continue to next section without entering required fields")
     print(act_msg1)
     print(act_msg2)
     print(act_msg3)

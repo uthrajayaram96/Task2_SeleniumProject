@@ -37,8 +37,6 @@ if __name__ == '__main__':
     expected_msg = 'Your search - ' + search_word + ' - did not return any results. You may want to try entering different words or search using the navigation tabs at the top of this page.'
     actual_msg = validate_search_bar(driver, search_word)
 
-    if actual_msg == expected_msg:
-        print("Test case passed")
-        print(actual_msg)
-    else:
-        assert False, "Test case failed - The expected message and actual message didn't match"
+    assert actual_msg == expected_msg, "Test case 4 failed! - The expected message and actual message didn't match"
+    print("Test case 4 passed! Expected error message is equal to actual error message")
+    print("The Actual message is - "+actual_msg)

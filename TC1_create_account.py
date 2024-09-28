@@ -1,8 +1,10 @@
 """
 TC1_create_account :  Testing new member enrollment page (Aeroplan)
 Description : - This testcase is used to test the positive scenario.
-              - User should be able to enter all the required fields in Account Information, Personal Information and
-                Contact Information sections
+              - User should be able to enter all the required fields in Account Information section and proceed to
+                Personal Information section and then to Contact Information section
+              - The goal of this test case is to check if the user is able to enter all the details in the field without
+                any issue
 """
 
 from selenium import webdriver
@@ -18,7 +20,7 @@ def enter_account_information(driver):
     # selecting Areoplan number option (N0)
     driver.find_element(By.XPATH, "(//label[@class='mat-radio-label'])[1]")
 
-    driver.find_element(By.NAME, "emailAddress").send_keys("uthrajayaram02@gmail.com")
+    driver.find_element(By.NAME, "emailAddress").send_keys("uthrajayaram@testemail.com")
     driver.find_element(By.NAME, "password").send_keys("TestPassword#1")
     # I was getting intercepted exception, so had to use execute script (JS) to identify the element
     driver.execute_script("arguments[0].click();", driver.find_element(By.ID, "checkBox-input"))
@@ -85,11 +87,6 @@ def enter_contact_information(driver):
     driver.find_element(By.XPATH, "//input[@formcontrolname='addressLine1']").send_keys("2107 Deer Creek Dr")
     driver.find_element(By.XPATH, "//input[@formcontrolname='city']").send_keys("Plainsboro")
     # Select country
-    #driver.execute_script("arguments[0].click();",
-                          #driver.find_element(By.XPATH, "(//div[contains(@class,'mat-select-trigger')])[1]"))
-    #driver.find_element(By.XPATH, "(//div[contains(@class,'mat-select-trigger')])[1]").click()
-    #driver.find_element(By.XPATH,"//mat-select[@name='country']").click()
-
     # had to use explicit wait
     country_ele = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH, "//mat-select[@name='country']")))
     country_ele.click()
@@ -134,3 +131,5 @@ if __name__ == '__main__':
     driver = enter_account_information(driver)
     driver = enter_personal_information(driver)
     driver = enter_contact_information(driver)
+
+    print("Test case 1 Passed - Able to enter all the details!")
