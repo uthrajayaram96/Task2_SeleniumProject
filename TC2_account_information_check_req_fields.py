@@ -1,11 +1,11 @@
 """
-TC2_account_information_check_req_fields - Testing new member enrollment page (Aeroplan)
-Description:- This testcase is used to test the negative scenario.
-            - Failing to provide required field values should prevent the user to navigate to the next
-              section(Personal Information).
-            - Appropriate validation messages should be displayed.
-            - Required Fields are : Email address, password, checking the terms and conditions box (But this should be
-              confirmed as per user requirement)
+TC2_account_information_check_req_fields : Testing new member enrollment page (Aeroplan)
+Description : - This testcase is used to test the negative scenario.
+              - Failing to provide required field values should prevent the user to navigate to the next
+                section(Personal Information).
+              - Appropriate validation messages should be displayed.
+              - Required Fields are : Email address, password, checking the terms and conditions box (But this should be
+                confirmed as per user requirement)
 """
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service

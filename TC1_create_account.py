@@ -1,8 +1,8 @@
 """
-TC1_create_account - Testing new member enrollment page (Aeroplan)
-Description:- This testcase is used to test the positive scenario.
-            - User should be able to enter all the required fields in Account Information, Personal Information and
-              Contact Information sections
+TC1_create_account :  Testing new member enrollment page (Aeroplan)
+Description : - This testcase is used to test the positive scenario.
+              - User should be able to enter all the required fields in Account Information, Personal Information and
+                Contact Information sections
 """
 
 from selenium import webdriver
